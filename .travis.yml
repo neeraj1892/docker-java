@@ -1,0 +1,16 @@
+sudo: required
+
+language: java
+jdk: oraclejdk8
+
+services:
+ -docker
+
+script:
+- mvn clean package -DskipTests
+
+after_success:
+ - docker login -u $DOCKER_USER -p $DOCKER_PASS
+ - export IMAGE_NAME=nj1892/demo
+ - docker build -t $IMAGE_NAME:latest .
+ - docker push $IMAGE_NAME
