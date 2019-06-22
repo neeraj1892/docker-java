@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+ name: demo-app-deployment
+spec:
+ replicas: 2
+ minReadySeconds: 15
+ strategy:
+  type: RollingUpdate
+  rollingUpdate:
+   maxUnavailable: 1
+   maxSurge: 1
+ template:
+   metadata:
+    labels:
+     app: demo-app
+   spec:
+    containers:
+      - image: nj1892/demo:1
+        imagePullPolicy: Always
+        name: demo-app
+        ports:
+         - containerPort: 8080
