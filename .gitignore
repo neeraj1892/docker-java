@@ -1,7 +1,7 @@
 HELP.md
-/target/
-!/target/dependency/BOOT-INF/
-!/target/dependency/META-INF/
+target/**
+!target/dependency/BOOT-INF/*
+!target/dependency/META-INF/*
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
