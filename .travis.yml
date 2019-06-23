@@ -19,7 +19,7 @@ deploy:
  provider: elasticbeanstalk
  region: "us-west-1"
  app: "docker-java"
- env: "Docker-env"
+ env: "DockerJava-env"
  bucket_name: "elasticbeanstalk-us-west-1-707234857887"
  bucket_path: "docker-java"
  on:
