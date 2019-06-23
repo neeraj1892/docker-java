@@ -6,6 +6,9 @@ jdk: oraclejdk8
 services:
  -docker
 
+before_install:
+ - docker build .
+
 script:
 - mvn clean package -DskipTests
 
