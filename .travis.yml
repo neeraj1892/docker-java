@@ -14,3 +14,16 @@ after_success:
  - export IMAGE_NAME=nj1892/demo
  - docker build -t $IMAGE_NAME:latest .
  - docker push $IMAGE_NAME
+
+deploy:
+ provider: elasticbeanstalk
+ region: "us-west-1"
+ app: "docker-java"
+ env: "Docker-env"
+ bucket_name: "elasticbeanstalk-us-west-1-707234857887"
+ bucket_path: "docker-java"
+ on:
+  branch: master
+ access_key_id: $AWS_ACCESS_KEY
+ secret_access_key:
+  secure: $AWS_SECRET_KEY
