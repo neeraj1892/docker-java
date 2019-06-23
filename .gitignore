@@ -1,5 +1,5 @@
 HELP.md
-/target/
+/target/*
 !/target/dependency/BOOT-INF/
 !/target/dependency/META-INF/
 !.mvn/wrapper/maven-wrapper.jar
