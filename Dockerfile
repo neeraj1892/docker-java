@@ -1,8 +1,8 @@
 FROM openjdk:8-jre-alpine
-VOLUME /tmp
-ARG DEPENDENCY=target/dependency
-COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY ${DEPENDENCY}/META-INF /app/META-INF
-COPY ${DEPENDENCY}/BOOT-INF/classes /app
+
 EXPOSE 8080
-ENTRYPOINT ["java","-XX:+UnlockExperimentalVMOptions","-XX:+UseCGroupMemoryLimitForHeap","-XX:MaxRAMFraction=1","-XshowSettings:vm","-cp","app:app/lib/*","com.example.demo.DemoApplication"]
+
+COPY ./target/demo-1.0.1.jar /usr/app
+WORKDIR /usr/app
+
+ENTRYPOINT ["java", "-jar", "demo-1.0.1.jar"]
