@@ -3,36 +3,26 @@ pipeline {
        tools {
             maven 'maven-3.8'
        }
-       parameters {
-            choice(name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description: '')
-            booleanParam(name: 'executeTests', defaultValue: true, description: '')
-       }
-    stages {
-        stage("build") {
-            steps {
-                echo "building the app"
-            }
-        }
 
-        stage("test") {
-            when {
-                expression {
-                    params.executeTests
+    stages {
+        stage("build jar") {
+            steps {
+                script {
+                    echo "building the app"
+                    sh 'mvn package'
                 }
             }
-            steps {
-                echo "testing the app"
-            }
         }
 
-        stage("deploy") {
+        stage("build image") {
             steps {
-                echo "deploying the app"
-                echo "deploying with version ${params.VERSION}"
-                withCredentials([
-                    usernamePassword(credentialsId: 'github-nj-credentials', usernameVariable: 'USER', passwordVariable: 'PWD')
-                ]){
-                        sh "echo ${USER}"
+                script {
+                    echo "building the docker image"
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', usernameVariable: 'USER', passwordVariable: 'PWD')]) {
+                        sh "docker build -t nj1892/demo-app:jma-2.0 ."
+                        sh "echo $PWD | docker login -u $USER --password-stdin"
+                        sh "docker push nj1892/demo-app:jma-2.0"
+                    }
                 }
             }
         }
