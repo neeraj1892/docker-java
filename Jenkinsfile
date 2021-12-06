@@ -30,7 +30,7 @@ pipeline {
                 echo "deploying the app"
                 echo "deploying with version ${params.VERSION}"
                 withCredentials([
-                    usernamePassword(credentials: 'github-nj-credentials', usernameVariable: USER, passwordVariable: PWD)
+                    usernamePassword(credentialsId: 'github-nj-credentials', usernameVariable: 'USER', passwordVariable: 'PWD')
                 ]){
                         sh "some script ${USER} ${PWD}"
                 }
